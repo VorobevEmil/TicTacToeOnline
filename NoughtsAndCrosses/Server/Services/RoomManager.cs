@@ -20,7 +20,7 @@ namespace TicTacToeOnline.Server.Services
                 Id = Guid.NewGuid().ToString(),
                 RoomName = roomName,
             };
-            room.RoundCount = 10;
+            room.RoundCount = 5;
             room.ResetFigures();
             Rooms.Add(room);
 
@@ -60,7 +60,7 @@ namespace TicTacToeOnline.Server.Services
 
                     if (isGamePlayers && room.Users.Count != 0)
                     {
-                        room.RoundCount = 10;
+                        room.RoundCount = 5;
                         room.MovingUser = room.Users[0].Id;
                         room.ResetFigures();
                     }

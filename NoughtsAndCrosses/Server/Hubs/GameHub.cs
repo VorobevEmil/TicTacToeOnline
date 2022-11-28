@@ -47,11 +47,6 @@ namespace TicTacToeOnline.Server.Hubs
             {
                 room.ResetFigures();
             }
-            else  if (room.RoundCount == 0 && room.ScorePlayer1 == 5 && room.ScorePlayer2 == 5)
-            {
-                room.RoundCount++;
-                room.ResetFigures();
-            }
             else if (room.RoundCount == 0)
             {
                 if (room.ScorePlayer1 > room.ScorePlayer2)
@@ -66,7 +61,7 @@ namespace TicTacToeOnline.Server.Hubs
 
                 room.ScorePlayer1 = default!;
                 room.ScorePlayer2 = default!;
-                room.RoundCount = 10;
+                room.RoundCount = 5;
             }
 
             await ReplaceCurrentRoom(room);

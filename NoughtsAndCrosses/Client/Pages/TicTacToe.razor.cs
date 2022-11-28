@@ -77,17 +77,17 @@ namespace TicTacToeOnline.Client.Pages
                 await _connection.SendAsync("ReplaceCurrentRoom", Room);
             });
 
-            _connection.On<User>("NotifyLeave", async (user) =>
+            _connection.On<User>("NotifyLeave", (user) =>
             {
                 Snackbar.Add($"Пользователь {user.Username} вышел из комнаты", Severity.Info);
             });
 
-            _connection.On<User>("NotifyWin", async (user) =>
+            _connection.On<User>("NotifyWin",  (user) =>
             {
                 Snackbar.Add($"Пользователь {user.Username} победил в игре", Severity.Info);
             });
 
-            _connection.On<User>("NotifyScopePlus", async (user) =>
+            _connection.On<User>("NotifyScopePlus", (user) =>
             {
                 Snackbar.Add($"Плюс 1 очко игроку {user.Username}", Severity.Info);
             });
@@ -118,6 +118,7 @@ namespace TicTacToeOnline.Client.Pages
                 FigureType.None => null,
                 FigureType.Cross => Icons.Filled.Close,
                 FigureType.Nought => Icons.Filled.RadioButtonUnchecked,
+                _ => null
             };
         }
     }
