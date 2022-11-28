@@ -1,0 +1,73 @@
+﻿@page "/tic-tac-toe/{RoomId}"
+@attribute [Authorize]
+@using TicTacToeOnline.Shared.Models
+
+<PageTitle>Крестики-нолики онлайн</PageTitle>
+
+<style>
+    .mud-icon-size-large {
+        height: 80px;
+        width: 80px;
+    }
+</style>
+
+<div class="center-block">
+    @if (Room != null && User != null)
+    {
+        <div class="d-flex">
+            <MudPaper Width="250px;">
+                <MudText Style="background-color: #486179; padding: 9px 0 9px 0; color: #fff; font-weight: 600; display: flex; justify-content: center;">Счёт</MudText>
+                <div style="height: 90%; display: flex; align-items: center; justify-content: center; flex-direction: column; ">
+                    @if (Room.Users.Count < 2)
+                    {
+                        <MudText>Ожидание игроков</MudText>
+                    }
+                    else
+                    {
+                        <MudAlert Severity="Severity.Warning" Variant="Variant.Filled" NoIcon="true" Class="mt-2" Style="Width: 95%;">
+                            <MudText>@Room.Users[0].Username</MudText>
+                            <MudText>Очки: @Room.ScorePlayer1</MudText>
+                        </MudAlert>
+                        <MudAlert Severity="Severity.Warning" Variant="Variant.Filled" NoIcon="true" Class="mt-2" Style="Width: 95%;">
+                            <MudText>@Room.Users[1].Username</MudText>
+                            <MudText>Очки: @Room.ScorePlayer2</MudText>
+                        </MudAlert>
+                    }
+                </div>
+
+            </MudPaper>
+            <MudPaper Class="px-4 py-5 mx-3" Width="min-content">
+                <div class="d-flex" style="flex-wrap: wrap; justify-content: space-around; width: 350px">
+                    @foreach (var figure in Room.Figures)
+                    {
+                        <MudPaper Class="my-2" Width="100px;" Height="100px;" Elevation="1" Style="align-items: center; justify-content: center; display: flex;">
+                            <MudIconButton Style="width: 80px; height: 80px;"
+                                   Icon="@SetIcon(figure.FigureType)"
+                                   OnClick="async() => await SetFigureAsync(figure)"
+                                   Disabled="@(figure.Move || Room.MovingUser != User.Id || Room.Users.Count < 2)"
+                                   Size="Size.Large" />
+                        </MudPaper>
+                    }
+
+                </div>
+            </MudPaper>
+            <MudPaper Width="250px;">
+                <MudText Style="background-color: #486179; padding: 9px 0 9px 0; color: #fff; font-weight: 600; display: flex; justify-content: center;">Наблюдатели</MudText>
+                <MudList>
+                    @foreach (var user in Room.Users.Skip(2))
+                    {
+                        <MudListItem Text="@user.Username" />
+                        <MudDivider />
+                    }
+                </MudList>
+            </MudPaper>
+        </div>
+    }
+    else
+    {
+        <div style="padding: 50px; text-align: center;">
+            <MudText Typo="Typo.h4">Идёт загрузка комнат</MudText>
+            <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7" />
+        </div>
+    }
+</div>

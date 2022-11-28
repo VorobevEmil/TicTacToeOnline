@@ -1,0 +1,7 @@
+﻿<AuthorizeView>
+    <Authorized>
+        <MudText>Привет @(context.User.Identity!.Name)!</MudText>
+        <span class="mx-2"></span>
+        <MudButton StartIcon="@Icons.Filled.ExitToApp" Color="Color.Secondary" Variant="Variant.Filled" OnClick="LogoutAsync">Выход</MudButton>
+    </Authorized>
+</AuthorizeView>

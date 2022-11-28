@@ -1,0 +1,48 @@
+﻿@using System.Security.Claims
+@inherits LayoutComponentBase
+
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+
+    <MudAppBar Elevation="1">
+
+        <MudText Typo="Typo.h5" Class="ml-3">Itransition Task7 Воробьёв Эмиль</MudText>
+
+        <MudSpacer />
+        <CascadingValue Value="this">
+            <LoginPartial />
+        </CascadingValue>
+
+    </MudAppBar>
+
+    <MudMainContent>
+        <CascadingValue Value="this">
+            @Body
+        </CascadingValue>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+
+    [Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
+
+    private ClaimsPrincipal _user = default!;
+    private bool _userIsAuthenticated;
+    private bool _drawerOpen;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _user = (await AuthenticationStateProvider.GetAuthenticationStateAsync()).User;
+        _userIsAuthenticated = _user.Identity!.IsAuthenticated;
+        _drawerOpen = _userIsAuthenticated;
+        StateHasChanged();
+    }
+
+
+    private void DrawerToggle() => _drawerOpen = !_drawerOpen;
+    public async Task RefreshStateAsync() => await OnInitializedAsync();
+
+}

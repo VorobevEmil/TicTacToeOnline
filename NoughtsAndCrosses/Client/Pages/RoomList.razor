@@ -1,0 +1,42 @@
+﻿@page "/room-list"
+@attribute [Authorize]
+
+<PageTitle>Список комнат</PageTitle>
+
+<div class="center-block">
+    @if (Rooms != default)
+    {
+        <div>
+            <MudPaper Width="500px;">
+                <MudText Style="background-color: #486179; padding: 9px 11px 9px 20px; color: #fff; font-weight: 600; display: flex; justify-content: space-between;">Приглашения</MudText>
+                <div class="px-3 py-2" style="max-height: 350px; overflow: auto;">
+                    @if (Rooms.Count != default)
+                    {
+                        <MudText Class="mt-2">Список комнат</MudText>
+                        <MudList Clickable="true">
+                            @foreach (var room in Rooms)
+                            {
+                                <MudListItem OnClick="@(new EventCallback(null, () => NavigationManager.NavigateTo($"tic-tac-toe/{room.Id}")))" Text="@room.RoomName" />
+                                <MudDivider />
+                            }
+                        </MudList>
+                    }
+                    else
+                    {
+                        <MudText Class="mt-2 w-100 d-flex justify-content-center">Пока что нет активных комнат, создайте свою комнату</MudText>
+                    }
+                    <div class="mt-4 w-100 d-flex justify-content-center">
+                        <MudButton Variant="Variant.Filled" Color="Color.Warning" Style="display: flex; justify-content: center;" OnClick="CreateNewRoom">Создать комнату</MudButton>
+                    </div>
+                </div>
+            </MudPaper>
+        </div>
+    }
+    else
+    {
+        <div style="padding: 50px; text-align: center;">
+            <MudText Typo="Typo.h4">Идёт загрузка комнат</MudText>
+            <MudProgressLinear Color="Color.Primary" Indeterminate="true" Class="my-7" />
+        </div>
+    }
+</div>

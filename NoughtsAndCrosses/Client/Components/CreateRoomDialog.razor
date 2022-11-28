@@ -1,0 +1,22 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudTextField @bind-Value="_nameRoom" Required="true" RequiredError="Введите название комнаты" Label="Название"></MudTextField>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Отмена</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Создать</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
+    private string _nameRoom = default!;
+
+    private void Submit()
+    {
+        if (_nameRoom != null && _nameRoom != string.Empty)
+        {
+            MudDialog.Close(DialogResult.Ok(_nameRoom));
+        }
+    }
+    private void Cancel() => MudDialog.Cancel();
+}

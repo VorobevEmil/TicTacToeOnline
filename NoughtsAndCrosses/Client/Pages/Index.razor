@@ -1,0 +1,26 @@
+﻿@page "/"
+
+<AuthorizeView>
+    <Authorized>
+        @{
+            NavigationManager.NavigateTo("room-list");
+        }
+    </Authorized>
+    <NotAuthorized>
+        <div class="center-block">
+            <MudPaper Class="text-center" style="width: 500px; border:#424242ff solid 1px;">
+                <div class="py-3 px-4" style="text-align: start; background-color:#adc9e5;">
+                    <MudText>Вход в крестики-нолики</MudText>
+                </div>
+                <div class="mx-3" style="text-align: start;">
+                    <MudText Class="mt-2">Введите имя пользователя</MudText>
+                    <div class="my-3 d-flex align-items-center">
+                        <MudTextField @bind-Value="_username" Margin="Margin.Dense" Variant="Variant.Outlined" Label="Имя пользователя" />
+                        <span class="mx-1"></span>
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="LoginAsync">Войти</MudButton>
+                    </div>
+                </div>
+            </MudPaper>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
