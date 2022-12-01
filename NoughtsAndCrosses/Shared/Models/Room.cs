@@ -10,7 +10,6 @@
 
         public int ScorePlayer1 { get; set; }
         public int ScorePlayer2 { get; set; }
-        public int RoundCount { get; set; } 
 
         public void ResetFigures()
         {

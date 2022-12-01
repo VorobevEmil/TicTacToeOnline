@@ -16,7 +16,7 @@
                         <MudList Clickable="true">
                             @foreach (var room in Rooms)
                             {
-                                <MudListItem OnClick="@(new EventCallback(null, () => NavigationManager.NavigateTo($"tic-tac-toe/{room.Id}")))" Text="@room.RoomName" />
+                                <MudListItem OnClick="@(new EventCallback(null, () => NavigationManager.NavigateTo($"room/{room.Id}")))" Text="@room.RoomName" />
                                 <MudDivider />
                             }
                         </MudList>

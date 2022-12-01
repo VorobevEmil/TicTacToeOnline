@@ -1,4 +1,4 @@
-﻿@page "/tic-tac-toe/{RoomId}"
+﻿@page "/room/{RoomId}"
 @attribute [Authorize]
 @using TicTacToeOnline.Shared.Models
 
@@ -40,8 +40,8 @@
                 <div class="d-flex" style="flex-wrap: wrap; justify-content: space-around; width: 350px">
                     @foreach (var figure in Room.Figures)
                     {
-                        <MudPaper Class="my-2" Width="100px;" Height="100px;" Elevation="1" Style="align-items: center; justify-content: center; display: flex;">
-                            <MudIconButton Style="width: 80px; height: 80px;"
+                        <MudPaper Class="my-2" Width="100px;" Height="100px;" Elevation="1" Style="@("align-items: center; justify-content: center; display: flex;" + SetBackground(figure.FigureType))">
+                            <MudIconButton Style="@("width: 80px; height: 80px;" + SetColor(figure.FigureType))"
                                    Icon="@SetIcon(figure.FigureType)"
                                    OnClick="async() => await SetFigureAsync(figure)"
                                    Disabled="@(figure.Move || Room.MovingUser != User.Id || Room.Users.Count < 2)"

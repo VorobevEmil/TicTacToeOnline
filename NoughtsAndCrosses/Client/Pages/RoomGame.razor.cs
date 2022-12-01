@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 
 namespace TicTacToeOnline.Client.Pages
 {
-    public partial class TicTacToe
+    public partial class RoomGame
     {
         [Inject] private IDialogService DialogService { get; set; } = default!;
         [Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
@@ -115,9 +115,28 @@ namespace TicTacToeOnline.Client.Pages
         {
             return figureType switch
             {
-                FigureType.None => null,
                 FigureType.Cross => Icons.Filled.Close,
                 FigureType.Nought => Icons.Filled.RadioButtonUnchecked,
+                _ => null
+            };
+        }
+
+        private string? SetColor(FigureType figureType)
+        {
+            return figureType switch
+            {
+                FigureType.Cross => "color:#418dff !important",
+                FigureType.Nought => "color:orange !important",
+                _ => null
+            };
+        }
+
+        private string? SetBackground(FigureType figureType)
+        {
+            return figureType switch
+            {
+                FigureType.Cross => "background: #ddf1ffe3",
+                FigureType.Nought => "background: #fff9e2e3",
                 _ => null
             };
         }

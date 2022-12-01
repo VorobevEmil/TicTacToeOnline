@@ -45,6 +45,8 @@ namespace TicTacToeOnline.Client.Pages
             });
 
             await connection.StartAsync();
+
+            await connection.SendAsync("DisconnectFromGroup");
         }
 
         private async Task CreateNewRoom()
@@ -60,7 +62,7 @@ namespace TicTacToeOnline.Client.Pages
                 var roomIdResponseMessage = await HttpClient.PostAsJsonAsync("api/Room/CreateNewRoom", (string)result.Data);
                 if (roomIdResponseMessage.IsSuccessStatusCode)
                 {
-                    NavigationManager.NavigateTo($"tic-tac-toe/{await roomIdResponseMessage.Content.ReadAsStringAsync()}");
+                    NavigationManager.NavigateTo($"room/{await roomIdResponseMessage.Content.ReadAsStringAsync()}");
                 }
             }
         }

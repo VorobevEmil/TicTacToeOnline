@@ -40,28 +40,18 @@ namespace TicTacToeOnline.Server.Hubs
                 }
 
                 room.ResetFigures();
-                room.RoundCount--;
             }
 
             if (room.CheckIfAllCellsFilled() && !winP1 && !winP2)
             {
                 room.ResetFigures();
             }
-            else if (room.RoundCount == 0)
+            else if (room.ScorePlayer1 == 3 || room.ScorePlayer1 == 3)
             {
-                if (room.ScorePlayer1 > room.ScorePlayer2)
-                {
-                    await Clients.Groups(room.Id).SendAsync("NotifyWin", room.Users[0]);
-
-                }
-                else
-                {
-                    await Clients.Groups(room.Id).SendAsync("NotifyWin", room.Users[1]);
-                }
+                await Clients.Groups(room.Id).SendAsync("NotifyWin", room.ScorePlayer1 == 3 ? room.Users[0] : room.Users[1]);
 
                 room.ScorePlayer1 = default!;
                 room.ScorePlayer2 = default!;
-                room.RoundCount = 5;
             }
 
             await ReplaceCurrentRoom(room);
